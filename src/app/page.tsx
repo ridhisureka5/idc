@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import Link from "next/link";
+
 import Image from "next/image";
 import {
   ShieldCheck,
@@ -7,50 +10,135 @@ import {
   BadgeCheck,
   ArrowRight,
   ChevronDown,
-
+  Menu,
+  X,
 } from "lucide-react";
-import Link from "next/link";
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <main className="min-h-screen bg-[#f7f4f2] overflow-hidden">
       
       {/* ================= NAVBAR ================= */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#f7f4f2]/90 backdrop-blur-md border-b border-[#ebe3de]">
-        <div className="flex items-center justify-between px-12 py-4">
-          
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl overflow-hidden">
-              <Image
-                src="/img1.jpeg"
-                alt="IGC Logo"
-                width={48}
-                height={48}
-                className="object-cover"
-              />
-            </div>
+      {/* ================= NAVBAR ================= */}
+<nav className="fixed top-0 left-0 w-full z-50 bg-[#f7f4f2]/90 backdrop-blur-md border-b border-[#ebe3de]">
 
-            <h1 className="text-xl font-bold text-[#9b7147]">
-              IGC
-            </h1>
-          </div>
+  <div className="flex items-center justify-between px-5 md:px-12 py-4">
 
-          {/* Nav Links */}
-          <div className="hidden lg:flex items-center gap-10 text-[15px] text-[#3b3028] font-medium">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/services">Services</a>
-            <a href="/gemology">Gemology</a>
-            <a href="/faq">FAQ</a>
-            <a href="/verify-certificate">Verify Certificate</a>
-            <a href="/reviews">Reviews</a>
-            <a href="/blogs">Blogs</a>
-            <a href="/sample-certificates">Sample Certificates</a>
-            <a href="/contact">Contact</a>
-          </div>
+    {/* Logo */}
+    <div className="flex items-center gap-3">
+      <div className="w-12 h-12 rounded-xl overflow-hidden">
+        <Image
+          src="/img1.jpeg"
+          alt="IGC Logo"
+          width={48}
+          height={48}
+          className="object-cover"
+        />
+      </div>
+
+      <h1 className="text-xl font-bold text-[#9b7147]">
+        IGC
+      </h1>
+    </div>
+
+    {/* Desktop Navbar */}
+    <div className="hidden lg:flex items-center gap-10 text-[15px] text-[#3b3028] font-medium">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/gemology">Gemology</a>
+      <a href="/faq">FAQ</a>
+      <a href="/verify-certificate">Verify Certificate</a>
+      <a href="/reviews">Reviews</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/sample-certificates">Sample Certificates</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    {/* Mobile Menu Button */}
+    <button
+      onClick={() => setMenuOpen(true)}
+      className="lg:hidden w-12 h-12 rounded-full bg-gradient-to-br from-[#6e3a18] to-[#d7ae7b] text-white flex items-center justify-center shadow-xl"
+    >
+      <Menu size={28} />
+    </button>
+  </div>
+
+  {/* MOBILE MENU */}
+  <div
+    className={`fixed top-0 right-0 h-screen w-[85%] max-w-[360px] bg-white z-[100] transition-all duration-500 shadow-2xl ${
+      menuOpen ? "translate-x-0" : "translate-x-full"
+    }`}
+  >
+
+    {/* Header */}
+    <div className="flex items-center justify-between px-6 py-6 border-b border-[#eee]">
+
+      <div className="flex items-center gap-3">
+        <div className="w-14 h-14 rounded-2xl overflow-hidden">
+          <Image
+            src="/img1.jpeg"
+            alt="IGC"
+            width={56}
+            height={56}
+            className="object-cover"
+          />
         </div>
-      </nav>
+
+        <div>
+          <h2 className="text-[30px] font-bold text-[#2d1407]">
+            Menu
+          </h2>
+
+          <p className="text-[15px] text-[#7a6c63]">
+            Navigate to any section
+          </p>
+        </div>
+      </div>
+
+      {/* Close Button */}
+      <button
+        onClick={() => setMenuOpen(false)}
+        className="w-14 h-14 rounded-full bg-[#f3ece7] flex items-center justify-center shadow-lg"
+      >
+        <X size={30} className="text-[#4b1f08]" />
+      </button>
+    </div>
+
+    {/* Links */}
+    <div className="flex flex-col px-6 py-8 gap-5 text-[22px] font-semibold text-[#2d1407]">
+
+      <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
+      <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
+      <a href="/services" onClick={() => setMenuOpen(false)}>Services</a>
+      <a href="/faq" onClick={() => setMenuOpen(false)}>FAQ</a>
+      <a href="/verify-certificate" onClick={() => setMenuOpen(false)}>Verify Certificate</a>
+      <a href="/gemology" onClick={() => setMenuOpen(false)}>Gemology</a>
+      <a href="/reviews" onClick={() => setMenuOpen(false)}>Reviews</a>
+      <a href="/blogs" onClick={() => setMenuOpen(false)}>Blogs</a>
+      <a href="/contact" onClick={() => setMenuOpen(false)}>Contact</a>
+    </div>
+
+    {/* Bottom Button */}
+    <div className="absolute bottom-6 left-6 right-6">
+      <button
+        onClick={() => setMenuOpen(false)}
+        className="w-full bg-[#4b1f08] text-white py-4 rounded-2xl text-[18px] font-semibold"
+      >
+        Close Menu
+      </button>
+    </div>
+  </div>
+
+  {/* Overlay */}
+  {menuOpen && (
+    <div
+      onClick={() => setMenuOpen(false)}
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] lg:hidden"
+    />
+  )}
+</nav>
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
@@ -59,26 +147,36 @@ export default function Home() {
         <div className="absolute w-[550px] h-[550px] rounded-full bg-white blur-3xl opacity-90"></div>
 
         {/* Center Logo */}
-        <div className="relative z-10 w-24 h-24 rounded-full bg-[#ece7e4] flex items-center justify-center mb-8 overflow-hidden">
-          <Image
-            src="/img1.jpeg"
-            alt="IGC Logo"
-            width={60}
-            height={60}
-            className="object-contain"
-          />
-        </div>
+        <div className="relative z-10 w-24 h-24 rounded-full bg-[#f1ebe6] flex items-center justify-center mb-8 shadow-md">
+  
+  {/* Simple Diamond Logo */}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#6e3a18"
+    strokeWidth="1.8"
+    className="w-12 h-12"
+  >
+    <path d="M6 3h12l4 5-10 13L2 8l4-5z" />
+    <path d="M2 8h20" />
+    <path d="M10 3L8 8l4 13 4-13-2-5" />
+  </svg>
 
-        {/* Heading */}
-        <h1 className="relative z-10 max-w-[1000px] leading-[1.05] font-extrabold tracking-tight">
-          <span className="block text-[58px] text-[#6e3a18]">
-            Trusted Gem Identification &
-          </span>
+</div>
 
-          <span className="block text-[58px] bg-gradient-to-r from-[#7a441e] to-[#caa16d] bg-clip-text text-transparent">
-            Diamond Grading Lab
-          </span>
-        </h1>
+       {/* Heading */}
+<h1 className="relative z-10 max-w-[1000px] leading-[1.05] font-extrabold tracking-tight">
+  
+  <span className="block text-[55px] bg-gradient-to-r from-[#5c2b0c] via-[#b8864b] to-[#e0bf86] bg-clip-text text-transparent">
+    Trusted Gem Identification &
+  </span>
+
+  <span className="block text-[54px] bg-gradient-to-r from-[#7a441e] via-[#c89b5d] to-[#f1d2a2] bg-clip-text text-transparent py-2">
+    Diamond Grading Lab
+  </span>
+
+</h1>
 
         {/* Subtitle */}
         <p className="relative z-10 mt-6 text-[18px] text-[#5e5147]">
@@ -131,448 +229,145 @@ export default function Home() {
       </section>
 
       {/* ================= SERVICES SECTION ================= */}
-      <section className="bg-[#faf8f6] py-20 px-8">
-        
-        {/* Heading */}
-        <div className="text-center">
-          <h2 className="text-[42px] font-bold text-[#4b1f08]">
-            Our Services
-          </h2>
+     {/* ================= SERVICES SECTION ================= */}
 
-          <p className="text-[18px] text-[#6b5b52] mt-3">
-            Comprehensive gem certification services
-          </p>
-        </div>
-
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-16 max-w-[1300px] mx-auto">
-          
-          {/* Card 1 */}
-          <div className="bg-white border border-[#efe7e1] rounded-[20px] p-6 shadow-sm hover:shadow-md transition-all">
-            <div className="w-14 h-14 rounded-xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
-              ✧
-            </div>
-
-            <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
-              Diamond Certification
-            </h3>
-
-            <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
-              Professional diamond grading and certification
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white border border-[#efe7e1] rounded-[20px] p-6 shadow-sm hover:shadow-md transition-all">
-            <div className="w-14 h-14 rounded-xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
-              ◈
-            </div>
-
-            <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
-              Gemstone Identification
-            </h3>
-
-            <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
-              Accurate identification of all precious stones
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white border border-[#efe7e1] rounded-[20px] p-6 shadow-sm hover:shadow-md transition-all">
-            <div className="w-14 h-14 rounded-xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
-              ☆
-            </div>
-
-            <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
-              Color Grading
-            </h3>
-
-            <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
-              Expert color analysis and certification
-            </p>
-          </div>
-
-          {/* Card 4 */}
-          <div className="bg-white border border-[#efe7e1] rounded-[20px] p-6 shadow-sm hover:shadow-md transition-all">
-            <div className="w-14 h-14 rounded-xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
-              ⌘
-            </div>
-
-            <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
-              Custom Reports
-            </h3>
-
-            <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
-              Tailored certification for unique gems
-            </p>
-          </div>
-        </div>
-
-        {/* Button */}
-        <div className="flex justify-center mt-16">
-          <Link href="/services" className="border border-[#c9b7aa] text-[#2b1d15] px-8 py-3 rounded-xl text-[16px] font-medium hover:bg-white transition-all flex items-center gap-3">
-            View All Services
-            <ArrowRight size={18} />
-          </Link>
-        </div>
-
-        {/* Floating Scroll Top */}
-        <button
-          onClick={() => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            });
-          }}
-          className="fixed bottom-6 right-6 w-12 h-12 rounded-xl bg-[#4b1f08] text-white text-xl shadow-lg hover:scale-105 transition-all"
-        >
-          ↑
-        </button>
-      </section>
-      {/* ================= FEATURED GEMSTONES ================= */}
-
-<section className="bg-[#faf8f6] py-20 px-8">
+<section className="bg-[#faf8f6] py-20 px-5 md:px-8">
   
   {/* Heading */}
   <div className="text-center">
-    <h2 className="text-[42px] font-bold bg-gradient-to-r from-[#6e3a18] to-[#c49a67] bg-clip-text text-transparent">
-      Featured Gemstones
+    <h2 className="text-[34px] md:text-[42px] font-bold text-[#4b1f08]">
+      Our Services
     </h2>
 
-    <p className="text-[18px] text-[#6d5d55] mt-3">
-      Discover our certified collection of precious gemstones
+    <p className="text-[17px] md:text-[18px] text-[#6b5b52] mt-3">
+      Comprehensive gem certification services
     </p>
   </div>
 
   {/* Cards */}
-  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-16 max-w-[1350px] mx-auto">
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-16 max-w-[1300px] mx-auto">
 
     {/* CARD 1 */}
-    <div className="bg-white rounded-[26px] overflow-hidden border border-[#eee5df] shadow-sm hover:-translate-y-3 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
-      <div className="h-[320px] overflow-hidden">
-       <img
-  src="/diamond.png"
-  alt="Diamond"
-  className="w-full h-full object-cover"
-/>
+    <div className="bg-white border border-[#efe7e1] rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+
+      {/* SMALL IMAGE */}
+      <div className="h-[180px] overflow-hidden">
+        <img
+          src="/diamond.png"
+          alt="Diamond Certification"
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      <div className="p-8">
-        <h3 className="text-[28px] font-bold text-[#3d1d0b]">
-          Diamond
+      <div className="p-6">
+        <div className="w-14 h-14 rounded-2xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
+          ✧
+        </div>
+
+        <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
+          Diamond Certification
         </h3>
 
-        <p className="mt-3 text-[17px] text-[#6d5d55]">
-          The Ultimate Symbol of Purity
+        <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
+          Professional diamond grading and certification
         </p>
       </div>
     </div>
 
     {/* CARD 2 */}
-    <div className="bg-white rounded-[26px] overflow-hidden border border-[#eee5df] shadow-sm hover:-translate-y-3 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
-      <div className="h-[320px] overflow-hidden">
+    <div className="bg-white border border-[#efe7e1] rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+
+      <div className="h-[180px] overflow-hidden">
         <img
-          src="/ruby.png"
-          alt="Ruby"
+          src="/service2.jpeg"
+          alt="Gemstone Identification"
           className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="p-8">
-        <h3 className="text-[28px] font-bold text-[#3d1d0b]">
-          Ruby
+      <div className="p-6">
+        <div className="w-14 h-14 rounded-2xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
+          ◈
+        </div>
+
+        <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
+          Gemstone Identification
         </h3>
 
-        <p className="mt-3 text-[17px] text-[#6d5d55]">
-          Passion in Every Facet
+        <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
+          Accurate identification of all precious stones
         </p>
       </div>
     </div>
 
     {/* CARD 3 */}
-    <div className="bg-white rounded-[26px] overflow-hidden border border-[#eee5df] shadow-sm hover:-translate-y-3 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
-      <div className="h-[320px] overflow-hidden">
+    <div className="bg-white border border-[#efe7e1] rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+
+      <div className="h-[180px] overflow-hidden">
         <img
-          src="/emerald.png"
-          alt="Emerald"
+          src="/service3.jpeg"
+          alt="Color Grading"
           className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="p-8">
-        <h3 className="text-[28px] font-bold text-[#3d1d0b]">
-          Emerald
+      <div className="p-6">
+        <div className="w-14 h-14 rounded-2xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
+          ☆
+        </div>
+
+        <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
+          Color Grading
         </h3>
 
-        <p className="mt-3 text-[17px] text-[#6d5d55]">
-          Nature&apos;s Finest Green
+        <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
+          Expert color analysis and certification
         </p>
       </div>
     </div>
 
     {/* CARD 4 */}
-    <div className="bg-white rounded-[26px] overflow-hidden border border-[#eee5df] shadow-sm hover:-translate-y-3 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
-      <div className="h-[320px] overflow-hidden">
+    <div className="bg-white border border-[#efe7e1] rounded-[24px] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+
+      <div className="h-[180px] overflow-hidden">
         <img
-          src="/sapphire.png"
-          alt="Sapphire"
+          src="/service4.jpeg"
+          alt="Custom Reports"
           className="w-full h-full object-cover"
         />
       </div>
 
-      <div className="p-8">
-        <h3 className="text-[28px] font-bold text-[#3d1d0b]">
-          Sapphire
+      <div className="p-6">
+        <div className="w-14 h-14 rounded-2xl bg-[#f3efec] flex items-center justify-center text-[#4b1f08] text-2xl">
+          ⌘
+        </div>
+
+        <h3 className="mt-6 text-[22px] font-bold text-[#241813]">
+          Custom Reports
         </h3>
 
-        <p className="mt-3 text-[17px] text-[#6d5d55]">
-          Royal Blue Elegance
+        <p className="mt-3 text-[16px] leading-7 text-[#6d5d55]">
+          Tailored certification for unique gems
         </p>
       </div>
     </div>
-
-    {/* CARD 5 */}
-    <div className="bg-white rounded-[26px] overflow-hidden border border-[#eee5df] shadow-sm hover:-translate-y-3 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
-      <div className="h-[320px] overflow-hidden">
-        <img
-          src="/pearl.png"
-          alt="Pearl"
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      <div className="p-8">
-        <h3 className="text-[28px] font-bold text-[#3d1d0b]">
-          Pearl
-        </h3>
-
-        <p className="mt-3 text-[17px] text-[#6d5d55]">
-          Timeless Lustrous Beauty
-        </p>
-      </div>
-    </div>
-
-    {/* CARD 6 */}
-    <div className="bg-white rounded-[26px] overflow-hidden border border-[#eee5df] shadow-sm hover:-translate-y-3 hover:shadow-xl transition-all duration-300 cursor-pointer">
-      
-      <div className="h-[320px] overflow-hidden">
-        <img
-          src="/topaz.png"
-          alt="Topaz"
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      <div className="p-8">
-        <h3 className="text-[28px] font-bold text-[#3d1d0b]">
-          Topaz
-        </h3>
-
-        <p className="mt-3 text-[17px] text-[#6d5d55]">
-          Warm Golden Radiance
-        </p>
-      </div>
-    </div>
-
   </div>
 
+  {/* BUTTON */}
+  <div className="flex justify-center mt-16">
+    <Link
+      href="/services"
+      className="border border-[#c9b7aa] text-[#2b1d15] px-8 py-3 rounded-2xl text-[16px] font-medium hover:bg-white transition-all flex items-center gap-3"
+    >
+      View All Services
+      <ArrowRight size={18} />
+    </Link>
+  </div>
 </section>
 {/* ================= GOOGLE REVIEWS SECTION ================= */}
 
-<section className="bg-[#faf8f6] py-24 px-8">
-  
-  {/* Heading */}
-  <div className="text-center">
-    <h2 className="text-[42px] font-bold text-[#4b1f08]">
-      Google Reviews
-    </h2>
 
-    <p className="text-[18px] text-[#6d5d55] mt-3">
-      See what our customers are saying about us
-    </p>
 
-    <h3 className="mt-12 text-[20px] font-semibold text-[#1d1d1d]">
-      What Our Customers Say
-    </h3>
-  </div>
-
-  {/* Reviews Container */}
-  <div className="max-w-[1350px] mx-auto mt-14 bg-[#f4f4f4] rounded-[22px] p-8 border border-[#ece4de]">
-    
-    {/* Google Logo */}
-    <div className="flex items-center gap-3 mb-10">
-      <img
-        src="https://www.google.com/favicon.ico"
-        alt="Google"
-        className="w-8 h-8"
-      />
-
-      <h4 className="text-[28px] font-semibold text-[#1f1f1f]">
-        Google Reviews
-      </h4>
-    </div>
-
-    {/* Reviews Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-      {/* Review 1 */}
-      <div className="bg-white rounded-[20px] p-6 shadow-sm hover:-translate-y-2 transition-all duration-300">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h5 className="text-[18px] font-semibold text-[#1d1d1d]">
-              Aarav Sharma
-            </h5>
-
-            <p className="text-[14px] text-[#8b7d75]">
-              Verified Customer
-            </p>
-          </div>
-
-          <span className="text-yellow-500 text-[18px]">
-            ★★★★★
-          </span>
-        </div>
-
-        <p className="mt-5 text-[16px] leading-7 text-[#5f534d]">
-          Excellent gemstone certification service. The report was
-          detailed, professional, and delivered on time.
-        </p>
-      </div>
-
-      {/* Review 2 */}
-      <div className="bg-white rounded-[20px] p-6 shadow-sm hover:-translate-y-2 transition-all duration-300">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h5 className="text-[18px] font-semibold text-[#1d1d1d]">
-              Priya Mehta
-            </h5>
-
-            <p className="text-[14px] text-[#8b7d75]">
-              Jewelry Designer
-            </p>
-          </div>
-
-          <span className="text-yellow-500 text-[18px]">
-            ★★★★★
-          </span>
-        </div>
-
-        <p className="mt-5 text-[16px] leading-7 text-[#5f534d]">
-          Very authentic and trustworthy lab. Their gemstone
-          identification process is highly accurate.
-        </p>
-      </div>
-
-      {/* Review 3 */}
-      <div className="bg-white rounded-[20px] p-6 shadow-sm hover:-translate-y-2 transition-all duration-300">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h5 className="text-[18px] font-semibold text-[#1d1d1d]">
-              Rohan Kapoor
-            </h5>
-
-            <p className="text-[14px] text-[#8b7d75]">
-              Diamond Merchant
-            </p>
-          </div>
-
-          <span className="text-yellow-500 text-[18px]">
-            ★★★★★
-          </span>
-        </div>
-
-        <p className="mt-5 text-[16px] leading-7 text-[#5f534d]">
-          Premium experience from start to finish. The certification
-          quality exceeded my expectations.
-        </p>
-      </div>
-
-      {/* Review 4 */}
-      <div className="bg-white rounded-[20px] p-6 shadow-sm hover:-translate-y-2 transition-all duration-300">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h5 className="text-[18px] font-semibold text-[#1d1d1d]">
-              Sneha Verma
-            </h5>
-
-            <p className="text-[14px] text-[#8b7d75]">
-              Gem Collector
-            </p>
-          </div>
-
-          <span className="text-yellow-500 text-[18px]">
-            ★★★★★
-          </span>
-        </div>
-
-        <p className="mt-5 text-[16px] leading-7 text-[#5f534d]">
-          Beautiful presentation and highly knowledgeable gemologists.
-          I highly recommend their services.
-        </p>
-      </div>
-
-      {/* Review 5 */}
-      <div className="bg-white rounded-[20px] p-6 shadow-sm hover:-translate-y-2 transition-all duration-300">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h5 className="text-[18px] font-semibold text-[#1d1d1d]">
-              Kunal Jain
-            </h5>
-
-            <p className="text-[14px] text-[#8b7d75]">
-              Retail Customer
-            </p>
-          </div>
-
-          <span className="text-yellow-500 text-[18px]">
-            ★★★★★
-          </span>
-        </div>
-
-        <p className="mt-5 text-[16px] leading-7 text-[#5f534d]">
-          Fast certification process and extremely professional staff.
-          The reports looked premium and authentic.
-        </p>
-      </div>
-
-      {/* Review 6 */}
-      <div className="bg-white rounded-[20px] p-6 shadow-sm hover:-translate-y-2 transition-all duration-300">
-        
-        <div className="flex items-center justify-between">
-          <div>
-            <h5 className="text-[18px] font-semibold text-[#1d1d1d]">
-              Ishita Rao
-            </h5>
-
-            <p className="text-[14px] text-[#8b7d75]">
-              Boutique Owner
-            </p>
-          </div>
-
-          <span className="text-yellow-500 text-[18px]">
-            ★★★★★
-          </span>
-        </div>
-
-        <p className="mt-5 text-[16px] leading-7 text-[#5f534d]">
-          One of the best gem labs I have worked with. Clean reports,
-          excellent communication, and luxury presentation.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
 {/* ================= LATEST BLOGS SECTION ================= */}
 
 <section className="bg-[#faf8f6] py-24 px-8">

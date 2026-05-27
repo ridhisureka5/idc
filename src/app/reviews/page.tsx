@@ -8,12 +8,16 @@ import {
   Quote,
   Sparkles,
   ArrowUp,
+    Menu,
+    X,
 
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function ReviewsPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const reviews = [
     {
       name: "Rahul Mehta",
@@ -40,41 +44,125 @@ export default function ReviewsPage() {
 
   return (
     <main className="min-h-screen bg-[#f8f5f2] overflow-hidden">
-             <nav className="fixed top-0 left-0 w-full z-50 bg-[#f7f4f2]/90 backdrop-blur-md border-b border-[#ebe3de]">
-                    <div className="flex items-center justify-between px-12 py-4">
-                      
-                      {/* Logo */}
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl overflow-hidden">
-                          <Image
-                            src="/img1.jpeg"
-                            alt="IGC Logo"
-                            width={48}
-                            height={48}
-                            className="object-cover"
-                          />
-                        </div>
-            
-                        <h1 className="text-xl font-bold text-[#9b7147]">
-                          IGC
-                        </h1>
-                      </div>
-            
-                      {/* Nav Links */}
-                      <div className="hidden lg:flex items-center gap-10 text-[15px] text-[#3b3028] font-medium">
-                        <a href="/">Home</a>
-                        <a href="/about">About</a>
-                        <a href="/services">Services</a>
-                        <a href="/gemology">Gemology</a>
-                        <a href="/faq">FAQ</a>
-                        <a href="/verify-certificate">Verify Certificate</a>
-                        <a href="/reviews">Reviews</a>
-                        <a href="/blogs">Blogs</a>
-                        <a href="/sample-certificates">Sample Certificates</a>
-                        <a href="/contact">Contact</a>
-                      </div>
-                    </div>
-                  </nav>
+             {/* ================= NAVBAR ================= */}
+<nav className="fixed top-0 left-0 w-full z-50 bg-[#f7f4f2]/90 backdrop-blur-md border-b border-[#ebe3de]">
+
+  <div className="flex items-center justify-between px-5 md:px-12 py-4">
+
+    {/* Logo */}
+    <div className="flex items-center gap-3">
+      <div className="w-12 h-12 rounded-xl overflow-hidden">
+        <Image
+          src="/img1.jpeg"
+          alt="IGC Logo"
+          width={48}
+          height={48}
+          className="object-cover"
+        />
+      </div>
+
+      <h1 className="text-xl font-bold text-[#9b7147]">
+        IGC
+      </h1>
+    </div>
+
+    {/* Desktop Navbar */}
+    <div className="hidden lg:flex items-center gap-10 text-[15px] text-[#3b3028] font-medium">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/services">Services</a>
+      <a href="/gemology">Gemology</a>
+      <a href="/faq">FAQ</a>
+      <a href="/verify-certificate">Verify Certificate</a>
+      <a href="/reviews">Reviews</a>
+      <a href="/blogs">Blogs</a>
+      <a href="/sample-certificates">Sample Certificates</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    {/* Mobile Menu Button */}
+    <button
+      onClick={() => setMenuOpen(true)}
+      className="lg:hidden w-12 h-12 rounded-full bg-gradient-to-br from-[#6e3a18] to-[#d7ae7b] text-white flex items-center justify-center shadow-xl"
+    >
+      <Menu size={28} />
+    </button>
+  </div>
+
+  {/* MOBILE MENU */}
+  <div
+    className={`fixed top-0 right-0 h-screen w-[85%] max-w-[360px] bg-white z-[100] transition-all duration-500 shadow-2xl ${
+      menuOpen ? "translate-x-0" : "translate-x-full"
+    }`}
+  >
+
+    {/* Header */}
+    <div className="flex items-center justify-between px-6 py-6 border-b border-[#eee]">
+
+      <div className="flex items-center gap-3">
+        <div className="w-14 h-14 rounded-2xl overflow-hidden">
+          <Image
+            src="/img1.jpeg"
+            alt="IGC"
+            width={56}
+            height={56}
+            className="object-cover"
+          />
+        </div>
+
+        <div>
+          <h2 className="text-[30px] font-bold text-[#2d1407]">
+            Menu
+          </h2>
+
+          <p className="text-[15px] text-[#7a6c63]">
+            Navigate to any section
+          </p>
+        </div>
+      </div>
+
+      {/* Close Button */}
+      <button
+        onClick={() => setMenuOpen(false)}
+        className="w-14 h-14 rounded-full bg-[#f3ece7] flex items-center justify-center shadow-lg"
+      >
+        <X size={30} className="text-[#4b1f08]" />
+      </button>
+    </div>
+
+    {/* Links */}
+    <div className="flex flex-col px-6 py-8 gap-5 text-[22px] font-semibold text-[#2d1407]">
+
+      <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
+      <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
+      <a href="/services" onClick={() => setMenuOpen(false)}>Services</a>
+      <a href="/faq" onClick={() => setMenuOpen(false)}>FAQ</a>
+      <a href="/verify-certificate" onClick={() => setMenuOpen(false)}>Verify Certificate</a>
+      <a href="/gemology" onClick={() => setMenuOpen(false)}>Gemology</a>
+      <a href="/reviews" onClick={() => setMenuOpen(false)}>Reviews</a>
+      <a href="/blogs" onClick={() => setMenuOpen(false)}>Blogs</a>
+      <a href="/contact" onClick={() => setMenuOpen(false)}>Contact</a>
+    </div>
+
+    {/* Bottom Button */}
+    <div className="absolute bottom-6 left-6 right-6">
+      <button
+        onClick={() => setMenuOpen(false)}
+        className="w-full bg-[#4b1f08] text-white py-4 rounded-2xl text-[18px] font-semibold"
+      >
+        Close Menu
+      </button>
+    </div>
+  </div>
+
+  {/* Overlay */}
+  {menuOpen && (
+    <div
+      onClick={() => setMenuOpen(false)}
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[90] lg:hidden"
+    />
+  )}
+</nav>
             
 
       {/* ================= HERO ================= */}
